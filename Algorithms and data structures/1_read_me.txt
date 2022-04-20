@@ -10,7 +10,7 @@ h) sortira listu po prezimenima osoba,
 i) upisuje listu u datoteku, 
 j) čita listu iz datoteke. 
 
-Define structure of persones(name, lastname, year of birth) and write program wich:
+Define structure of persons(name, lastname, year of birth) and write program wich:
 a) dynamically adds new element on start of list
 b) prints list
 c) dynamically adds new element on end of list
