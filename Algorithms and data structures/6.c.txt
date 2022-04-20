@@ -1,0 +1,96 @@
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <time.h>
+#include <conio.h>
+
+
+/*Napisati program koji generira niz od 20 slučajnih brojeva u opsegu od 100 - 120. Brojeve je potrebno
+spremiti u u vezanu listu.Način formiranja liste nije bitan, ali se elementi ne smiju ponavljati.Ispisati
+listu.
+Napraviti "novu" vezanu listu koja sadrži sve elemente kao i prethodna, ali u obrnutom redoslijedu.
+
+//makes 2 lists, generets 20 random numbers that are reversed in second list
+*/
+typedef struct Numbers* position;
+typedef struct Numbers {
+	int el;
+	position next;
+}numbers;
+
+void makeList(position);
+position memory();
+addElement(position, position);
+int checkForDouble(position, position);
+void printList(position);
+int findLast(position, int);
+void makeReverseList(position, position);
+int main() {
+	numbers head = { 0 }; numbers reverseHead = { 0 };
+
+	makeList(&head);
+	printList(head.next);
+	makeReverseList(&head, &reverseHead);
+	printList(reverseHead.next);
+
+	return 1;
+}
+void makeList(position head) {
+	position q;
+	int listCnt = 0;
+
+	while (listCnt != 20) {
+		q = memory();
+		q->el = rand() % (121 - 100) + 100;
+
+		if (head->next == NULL) {
+			addElement(head, q); listCnt++;
+		}
+		else {
+			if (checkForDouble(head, q)) {
+				addElement(head, q); listCnt++;
+			}
+		}
+	}
+}
+position memory() {
+	position q;
+	q = (position)malloc(sizeof(numbers));
+
+	return q;
+}
+addElement(position head, position q) {
+	q->next = head->next;
+	head->next = q;
+}
+int checkForDouble(position head, position q) {
+	while (head->next)
+	{
+		if (head->next->el == q->el)
+			return 0;
+		head = head->next;
+	}
+	return 1;
+}
+void printList(position list) {
+	while (list) {
+		printf("%d\t", list->el);
+		list = list->next;
+	}
+	printf("\n\n");
+}
+void makeReverseList(position head, position reverseHead) {
+	int listCnt = 0;
+	int N = 0;
+	position q, p, tmp;
+	while (listCnt != 20)
+	{
+		q = memory();
+		q->el = head->next->el;
+		addElement(reverseHead, q); listCnt++;
+		head = head->next;
+	}
+}
